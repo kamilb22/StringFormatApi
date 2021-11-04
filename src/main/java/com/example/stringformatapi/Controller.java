@@ -30,10 +30,7 @@ public class Controller {
         return restTemplate.getForObject(uri, String.class);
     }
 
-
-    @RequestMapping("/lowerCase/{string}")
-    public String lowerCase(@PathVariable String string, @RequestParam(required = false) String mode) {
-        String stringApiResultString = getResponseFromAnotherApi("/lowerCase/" + string);
+    private String getString(@RequestParam(required = false) String mode, String stringApiResultString) {
         if (mode == null || mode.equals("json")) {
             JSONObject jo = stringToJSON(stringApiResultString);
             return jo.toString();
@@ -45,11 +42,20 @@ public class Controller {
         return "";
     }
 
+    @RequestMapping("/lowerCase/{string}")
+    public String lowerCase(@PathVariable String string, @RequestParam(required = false) String mode) {
+        String stringApiResultString = getResponseFromAnotherApi("/lowerCase/" + string);
+        return getString(mode, stringApiResultString);
+    }
+
 
     @RequestMapping("/upperCase/{string}")
-    public int upperCase(@PathVariable String string, @RequestParam(required = false) String mode) {
-        return 0;
+    public String upperCase(@PathVariable String string, @RequestParam(required = false) String mode) {
+        String stringApiResultString = getResponseFromAnotherApi("/upperCase/" + string);
+        return getString(mode, stringApiResultString);
     }
+
+
 
     @RequestMapping("/numbers/{string}")
     public int numbers(@PathVariable String string, @RequestParam(required = false) String mode) {
