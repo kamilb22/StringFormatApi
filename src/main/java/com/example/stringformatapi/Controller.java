@@ -1,7 +1,6 @@
 package com.example.stringformatapi;
 
 import org.json.JSONObject;
-import org.json.XML;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,7 +55,6 @@ public class Controller {
     }
 
 
-
     @RequestMapping("/numbers/{string}")
     public String numbers(@PathVariable String string, @RequestParam(required = false) String mode) {
         String stringApiResultString = getResponseFromAnotherApi("/numbers/" + string);
@@ -66,5 +64,6 @@ public class Controller {
     @RequestMapping("/special/{string}")
     public String special(@PathVariable String string, @RequestParam(required = false) String mode) {
         String stringApiResultString = getResponseFromAnotherApi("/special/" + string);
-        return getString(mode, stringApiResultString);    }
+        return getString(mode, stringApiResultString);
+    }
 }
