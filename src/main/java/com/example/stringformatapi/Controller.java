@@ -64,7 +64,7 @@ public class Controller {
     }
 
     @RequestMapping("/special/{string}")
-    public int special(@PathVariable String string, @RequestParam(required = false) String mode) {
-        return 0;
-    }
+    public String special(@PathVariable String string, @RequestParam(required = false) String mode) {
+        String stringApiResultString = getResponseFromAnotherApi("/special/" + string);
+        return getString(mode, stringApiResultString);    }
 }
