@@ -59,18 +59,18 @@ In order to run this API you have to run String-API.
  `GET` /numbers/Ala1 Ma Kota6?mode=json
  
     {
-	 "result": 6
+	 "result": 2
     }
     
    ---
 **example** `200`
  `GET` /numbers/Ala1 Ma Kota6?mode=xml
  
-    <result>6</result>
+    <result>2</result>
 
    ---
 **example** `200`
  `GET` /numbers/Ala1 Ma Kota6?mode=csv
  
     "result"
-	6
+	2
