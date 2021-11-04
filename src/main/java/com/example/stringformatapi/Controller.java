@@ -58,8 +58,9 @@ public class Controller {
 
 
     @RequestMapping("/numbers/{string}")
-    public int numbers(@PathVariable String string, @RequestParam(required = false) String mode) {
-        return 0;
+    public String numbers(@PathVariable String string, @RequestParam(required = false) String mode) {
+        String stringApiResultString = getResponseFromAnotherApi("/numbers/" + string);
+        return getString(mode, stringApiResultString);
     }
 
     @RequestMapping("/special/{string}")
