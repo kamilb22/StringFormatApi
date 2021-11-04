@@ -1,35 +1,63 @@
 package com.example.stringformatapi;
 
-import com.fasterxml.jackson.databind.JsonSerializable;
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 public class Controller {
+
+    JSONObject stringToJSON(String string) {
+        return new JSONObject("{ \"result\" : " + string + " }");
+    }
+
+    String stringToXML(String string) {
+        return "<result>" + string + "<result>";
+    }
+
+    String stringToCSV(String string) {
+        return "\"result\"\n" + string;
+    }
+
+    private String getResponseFromAnotherApi(String string) {
+        final String uri = "http://localhost:8080" + string;
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(uri, String.class);
+    }
+
+
     @RequestMapping("/lowerCase/{string}")
-    public String lowerCase(@PathVariable String string, @RequestParam(required = false) String mode){
+    public String lowerCase(@PathVariable String string, @RequestParam(required = false) String mode) {
+        String stringApiResultString = getResponseFromAnotherApi("/lowerCase/" + string);
+        if (mode == null || mode.equals("json")) {
+            JSONObject jo = stringToJSON(stringApiResultString);
+            return jo.toString();
+        } else if (mode.equals("xml")) {
+            return stringToXML(stringApiResultString);
+        } else if (mode.equals("csv")) {
+            return stringToCSV(stringApiResultString);
+        }
         return "";
     }
 
+
     @RequestMapping("/upperCase/{string}")
-    public int upperCase(@PathVariable String string, @RequestParam(required = false) String mode){
+    public int upperCase(@PathVariable String string, @RequestParam(required = false) String mode) {
         return 0;
     }
 
     @RequestMapping("/numbers/{string}")
-    public int numbers(@PathVariable String string, @RequestParam(required = false) String mode){
+    public int numbers(@PathVariable String string, @RequestParam(required = false) String mode) {
         return 0;
     }
 
     @RequestMapping("/special/{string}")
-    public int special(@PathVariable String string, @RequestParam(required = false) String mode){
+    public int special(@PathVariable String string, @RequestParam(required = false) String mode) {
         return 0;
     }
 }
