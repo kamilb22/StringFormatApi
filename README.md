@@ -74,3 +74,8 @@ In order to run this API you have to run String-API.
  
     "result"
 	2
+   ---
+**example** `200`
+`GET` /numbers/Ala1 Ma Kota6?mode=txt
+
+    Numbers: 2
