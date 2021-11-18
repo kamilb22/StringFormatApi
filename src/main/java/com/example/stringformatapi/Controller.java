@@ -37,6 +37,8 @@ public class Controller {
             return stringToXML(stringApiResultString);
         } else if (mode.equals("csv")) {
             return stringToCSV(stringApiResultString);
+        } else if (mode.equals("txt")) {
+            return stringApiResultString;
         }
         return "";
     }
@@ -44,26 +46,34 @@ public class Controller {
     @RequestMapping("/lowerCase/{string}")
     public String lowerCase(@PathVariable String string, @RequestParam(required = false) String mode) {
         String stringApiResultString = getResponseFromAnotherApi("/lowerCase/" + string);
-        return getString(mode, stringApiResultString);
+        String result = getString(mode, stringApiResultString);
+        if (mode.equals("txt")) result = "Lower: " + result;
+        return result;
     }
 
 
     @RequestMapping("/upperCase/{string}")
     public String upperCase(@PathVariable String string, @RequestParam(required = false) String mode) {
         String stringApiResultString = getResponseFromAnotherApi("/upperCase/" + string);
-        return getString(mode, stringApiResultString);
+        String result = getString(mode, stringApiResultString);
+        if (mode.equals("txt")) result = "Upper: " + result;
+        return result;
     }
 
 
     @RequestMapping("/numbers/{string}")
     public String numbers(@PathVariable String string, @RequestParam(required = false) String mode) {
         String stringApiResultString = getResponseFromAnotherApi("/numbers/" + string);
-        return getString(mode, stringApiResultString);
+        String result = getString(mode, stringApiResultString);
+        if (mode.equals("txt")) result = "Numbers: " + result;
+        return result;
     }
 
     @RequestMapping("/special/{string}")
     public String special(@PathVariable String string, @RequestParam(required = false) String mode) {
         String stringApiResultString = getResponseFromAnotherApi("/special/" + string);
-        return getString(mode, stringApiResultString);
+        String result = getString(mode, stringApiResultString);
+        if (mode.equals("txt")) result = "Special: " + result;
+        return result;
     }
 }
